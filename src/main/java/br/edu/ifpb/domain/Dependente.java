@@ -1,6 +1,7 @@
 package br.edu.ifpb.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @author Ricardo Job
@@ -16,9 +17,10 @@ public class Dependente {
     public Dependente() {
     }
 
-    public Dependente(String uuid,String nome) {
+    public Dependente(String uuid,String nome, LocalDate dataDeNascimento) {
         this.uuid = uuid;
         this.nome = nome;
+        this.dataDeNascimento = dataDeNascimento;
     }
 
     public String getUuid() {
@@ -37,4 +39,34 @@ public class Dependente {
         this.nome = nome;
     }
 
+    public LocalDate getDataDeNascimento() {
+        return dataDeNascimento;
+    }
+
+    public void setDataDeNascimento(LocalDate dataDeNascimento) {
+        this.dataDeNascimento = dataDeNascimento;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dependente that = (Dependente) o;
+        return Objects.equals(uuid, that.uuid) &&
+                Objects.equals(nome, that.nome) &&
+                Objects.equals(dataDeNascimento, that.dataDeNascimento);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid, nome, dataDeNascimento);
+    }
+
+    @Override
+    public String toString() {
+        return "Dependente{" +
+                "uuid='" + uuid + '\'' +
+                ", nome='" + nome + '\'' +
+                ", dataDeNascimento=" + dataDeNascimento +
+                '}';
+    }
 }
