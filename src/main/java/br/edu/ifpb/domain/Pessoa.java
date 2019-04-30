@@ -15,19 +15,14 @@ public class Pessoa {
     private Dependente dependente;
 
     public Pessoa() {
-        this(
-            "",
-            "11122233344"
-        );
+
     }
 
-    public Pessoa(String nome,String cpf) {
-        this(
-            nome,new CPF(cpf)
-        );
+    public Pessoa(String nome,String cpf,Dependente dependente) {
+        this(nome,new CPF(cpf),dependente);
     }
 
-    public Pessoa(String nome,CPF cpf) {
+    public Pessoa(String nome, CPF cpf, Dependente dependente) {
         this.cpf = cpf;
         this.nome = nome;
     }
@@ -50,9 +45,13 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "{ 'cpf':'" + cpf + "', 'nome': '" + nome + "'}";
+        return "Pessoa{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf=" + cpf +
+                ", dependente=" + dependente +
+                '}';
     }
-
     @Override
     public int hashCode() {
         int hash = 7;
