@@ -1,62 +1,64 @@
 package br.edu.ifpb.web.jsf;
 
 import br.edu.ifpb.domain.Pessoa;
-import br.edu.ifpb.domain.Pessoas;
-import br.edu.ifpb.infra.memory.PessoasEmMemoria;
+import br.edu.ifpb.infra.dao.interfaces.PessoaDao;
+
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
-//import javax.faces.bean.RequestScoped;
 
-import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 
-/**
- * @author Ricardo Job
- * @mail ricardo.job@ifpb.edu.br
- * @since 25/04/2019, 10:23:24
- */
-//@RequestScoped
-//@ManagedBean
-//@RequestScoped
-@SessionScoped
+@ViewScoped
 @Named
 public class ControladorDePessoas implements Serializable {
 
-    private Pessoa pessoa = new Pessoa();
+    private List<Pessoa> todasAsPessoas;
+    private Pessoa pessoa;
 
-//    @Inject
-    private Pessoas service = new PessoasEmMemoria();
+    @Inject
+    private PessoaDao service;
 
-    //actionListeners
-//    public void exemplo(ActionEvent ev) {
-//        
-//    }
+    @PostConstruct
+    public void init(){
+        pessoa = new Pessoa();
+        todasAsPessoas = service.listar();
+    }
+
     public String salvar() {
-        this.service.nova(pessoa);
+        this.service.salvar(pessoa);
         this.pessoa = new Pessoa();
-//        return null; //        return "index.xhtml";
-//        return "list";
-        return "list.xhtml?faces-redirect=true";
+        todasAsPessoas = service.listar();
+        return null;
     }
 
     public String atualizar() {
         this.service.atualizar(pessoa);
         this.pessoa = new Pessoa();
+        todasAsPessoas = service.listar();
         return null;
     }
 
     public String excluir(Pessoa pessoa) {
-        this.service.excluir(pessoa);
+        this.service.remover(pessoa);
+        todasAsPessoas = service.listar();
         return null;
     }
 
     public String editar(Pessoa pessoa) {
         this.pessoa = pessoa;
+        todasAsPessoas = service.listar();
         return null;
     }
 
     public List<Pessoa> getTodasAsPessoas() {
-        return this.service.todas();
+        return todasAsPessoas;
+    }
+
+    public void setTodasAsPessoas(List<Pessoa> todasAsPessoas) {
+        this.todasAsPessoas = todasAsPessoas;
     }
 
     public Pessoa getPessoa() {
@@ -66,5 +68,6 @@ public class ControladorDePessoas implements Serializable {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
+
 
 }

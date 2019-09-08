@@ -2,11 +2,6 @@ package br.edu.ifpb.domain;
 
 import java.util.Objects;
 
-/**
- * @author Ricardo Job
- * @mail ricardo.job@ifpb.edu.br
- * @since 25/04/2019, 09:55:19
- */
 public class Pessoa {
 
     private int id;
@@ -15,16 +10,24 @@ public class Pessoa {
     private Dependente dependente;
 
     public Pessoa() {
-
     }
 
-    public Pessoa(String nome,String cpf,Dependente dependente) {
-        this(nome,new CPF(cpf),dependente);
+
+    public Pessoa(String nome, String cpf, Dependente dependente){
+        this(nome, new CPF(cpf), dependente);
     }
 
-    public Pessoa(String nome, CPF cpf, Dependente dependente) {
-        this.cpf = cpf;
+    public Pessoa(int id, String nome, String cpf, Dependente dependente) {
+        this(nome, cpf, dependente);
+        this.id = id;
+    }
+
+
+
+    public Pessoa(String nome, CPF cpf, Dependente dependente){
         this.nome = nome;
+        this.cpf = cpf;
+        this.dependente = dependente;
     }
 
     public CPF getCpf() {
@@ -43,50 +46,28 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    @Override
-    public String toString() {
-        return "Pessoa{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cpf=" + cpf +
-                ", dependente=" + dependente +
-                '}';
+    public Dependente getDependente() {
+        return dependente;
     }
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.cpf);
-        hash = 17 * hash + Objects.hashCode(this.nome);
-        hash = 17 * hash + this.id;
-        hash = 17 * hash + Objects.hashCode(this.dependente);
-        return hash;
+
+    public void setDependente(Dependente dependente) {
+        this.dependente = dependente;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pessoa other = (Pessoa) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.nome,other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.cpf,other.cpf)) {
-            return false;
-        }
-        if (!Objects.equals(this.dependente,other.dependente)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(nome, pessoa.nome) &&
+                Objects.equals(cpf, pessoa.cpf) &&
+                Objects.equals(dependente, pessoa.dependente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, cpf, dependente);
     }
 
 }
+

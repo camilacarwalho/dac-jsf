@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    build: ./banco/
+    ports:
+      - "5433:5432"
+    container_name: db_jsf
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: aplication_jsf
+    links:
+      - db:host-banco

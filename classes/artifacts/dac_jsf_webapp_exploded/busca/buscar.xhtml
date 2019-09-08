@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+<ui:composition template="../template/template.xhtml">
+    <ui:define name="centro">
+        <div class="container">
+            <h1 class="header center teal-text text-lighten-2">Cadastro</h1>
+            <div class="row center">
+                <h:form>
+                    <div class="row center">
+
+                        <div class="col s12">
+                            <div class="input-field">
+                                <h:inputText id="nome" value="#{controladorDeBusca.cpf}" />
+                                <label for="nome">Buscar por CPF</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row center">
+                        <div class="col s12 center">
+                            <h:commandButton styleClass="btn-large" action="#{controladorDeBusca.buscar()}" value="Buscar">
+                            </h:commandButton>
+                        </div>
+                    </div>
+                    <h:messages></h:messages>
+                </h:form>
+            </div>
+        </div>
+        <div class="container">
+            <h1 class="header center teal-text text-lighten-2">Resultado</h1>
+            <div class="row center">
+                <table>
+                    <tr>
+                        <td>Nome</td>
+                        <td>CPF</td>
+                        <td>Dependente</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h:outputText value="#{controladorDeBusca.pessoaBuscada.nome}"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{controladorDeBusca.pessoaBuscada.cpf.valor()}"/>
+                        </td>
+                        <td>
+                            <h:outputText value="#{controladorDeBusca.pessoaBuscada.dependente.nome}"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

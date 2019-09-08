@@ -3,24 +3,24 @@ package br.edu.ifpb.domain;
 import java.time.LocalDate;
 import java.util.Objects;
 
-/**
- * @author Ricardo Job
- * @mail ricardo.job@ifpb.edu.br
- * @since 26/04/2019, 18:38:44
- */
 public class Dependente {
 
     private String uuid;
     private String nome;
-    private LocalDate dataDeNascimento;
+    private LocalDate nascimento;
 
     public Dependente() {
+
     }
 
-    public Dependente(String uuid,String nome, LocalDate dataDeNascimento) {
+    public Dependente(String uuid, String nome, LocalDate nascimento) {
+        this(nome, nascimento);
         this.uuid = uuid;
+    }
+
+    public Dependente(String nome, LocalDate nascimento) {
         this.nome = nome;
-        this.dataDeNascimento = dataDeNascimento;
+        this.nascimento = nascimento;
     }
 
     public String getUuid() {
@@ -39,26 +39,27 @@ public class Dependente {
         this.nome = nome;
     }
 
-    public LocalDate getDataDeNascimento() {
-        return dataDeNascimento;
+    public LocalDate getNascimento() {
+        return nascimento;
     }
 
-    public void setDataDeNascimento(LocalDate dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
+    public void setNascimento(LocalDate nascimento) {
+        this.nascimento = nascimento;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Dependente)) return false;
         Dependente that = (Dependente) o;
-        return Objects.equals(uuid, that.uuid) &&
-                Objects.equals(nome, that.nome) &&
-                Objects.equals(dataDeNascimento, that.dataDeNascimento);
+        return Objects.equals(getUuid(), that.getUuid()) &&
+                Objects.equals(getNome(), that.getNome()) &&
+                Objects.equals(getNascimento(), that.getNascimento());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid, nome, dataDeNascimento);
+        return Objects.hash(getUuid(), getNome(), getNascimento());
     }
 
     @Override
@@ -66,7 +67,9 @@ public class Dependente {
         return "Dependente{" +
                 "uuid='" + uuid + '\'' +
                 ", nome='" + nome + '\'' +
-                ", dataDeNascimento=" + dataDeNascimento +
+                ", dataDeNascimento=" + nascimento +
                 '}';
     }
 }
+
+
